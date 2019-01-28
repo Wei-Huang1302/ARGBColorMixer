@@ -1,0 +1,100 @@
+﻿<Window x:Class="ColorMixer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ColorMixer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Name="ColorMixer" >
+        <!--Divide form by 6*2-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Color Mixer" FontSize="35" HorizontalAlignment="Center" />
+        <!-- create radiobuttons for switching between standard and custom-->
+        <Viewbox Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+            <StackPanel  Orientation="Horizontal"  Margin="5">
+                <RadioButton Name="Standard" Content="Standard" Checked="Standard_Checked"/>
+                <RadioButton Name="Custom" Content="Customized" Checked="Custom_Checked"/>
+            </StackPanel>
+        </Viewbox>
+        <!-- Create two sets of radiobuttons-->
+        <Viewbox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Margin="5">
+            <StackPanel Name="FirstColor" Orientation="vertical" IsEnabled="False" >
+                <Label Name="FirstSet" Content="Pick First Color" />
+                <RadioButton Name="FirstRed" Content="Red" />
+                <RadioButton Name="FirstGreen" Content="Green" />
+                <RadioButton Name="FirstBlue" Content="Blue" />
+            </StackPanel>
+        </Viewbox>
+        <Viewbox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Margin="5">
+            <StackPanel Name="SecondColor" Orientation="vertical" IsEnabled="False" >
+                <Label Name="SecondSet" Content="Pick Second Color" />
+                <RadioButton Name="SecondRed" Content="Red" />
+                <RadioButton Name="SecondGreen" Content="Green" />
+                <RadioButton Name="SecondBlue" Content="Blue" />
+            </StackPanel>
+        </Viewbox>
+        <!--Create slider control for customized control-->
+        <Grid Grid.Row="3" Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Row="0" Grid.Column="1" Margin="5">
+                <StackPanel Name="AlphaRedStackpanel" Orientation="Vertical" IsEnabled="False">
+                    <Label Name="AlphaControl" Content="Alpha Control" HorizontalAlignment="Center"/>
+                    <Slider Name="AlphaSlider" Minimum="0" Maximum="255" Width="250" TickFrequency="15"  Value="0"
+                        AutoToolTipPlacement="BottomRight" TickPlacement="BottomRight" IsSelectionRangeEnabled="True"
+                            ValueChanged="AlphaSlider_ValueChanged"/>
+                    <Label Name="RedControl" Content="Red Control" HorizontalAlignment="Center" />
+                    <Slider Name="RedSlider" Minimum="0" Maximum="255" Width="250"  TickFrequency="15" Value="0" 
+                        AutoToolTipPlacement="BottomRight" TickPlacement="BottomRight" IsSelectionRangeEnabled="True"
+                            ValueChanged="RedSlider_ValueChanged"/>
+                </StackPanel>
+            </Viewbox>
+            <Viewbox Grid.Row="0" Grid.Column="0">
+                <StackPanel Name="AlphaRedDisplay" Orientation="Vertical" >
+                    <Rectangle Name="AlphaDisplay"  Height="10" Width="10"/>
+                    <Rectangle Name="RedDisplay"  Height="10" Width="10" />
+                </StackPanel>
+            </Viewbox>
+        </Grid>    
+        <Grid Grid.Row="4" Grid.Column="1" >
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Row="4" Grid.Column="1" Margin="5">
+                <StackPanel Name="GreenBlueStackpanel" Orientation="Vertical" IsEnabled="False" >
+                    <Label Name="GreenControl" Content="Green Control" HorizontalAlignment="Center"/>
+                    <Slider Name="GreenSlider" Minimum="0" Maximum="255" Width="250" TickFrequency="15" Value="0" 
+                        AutoToolTipPlacement="BottomRight" TickPlacement="BottomRight" IsSelectionRangeEnabled="True"
+                            ValueChanged="GreenSlider_ValueChanged"/>
+                    <Label Name="BlueControl" Content="Blue Control" HorizontalAlignment="Center" />
+                    <Slider Name="BlueSlider" Minimum="0" Maximum="255" Width="250"  TickFrequency="15" Value="0" 
+                        AutoToolTipPlacement="BottomRight" TickPlacement="BottomRight" IsSelectionRangeEnabled="True"
+                            ValueChanged="BlueSlider_ValueChanged"/>
+                </StackPanel>
+            </Viewbox>
+            <Viewbox Grid.Row="0" Grid.Column="0">
+                <StackPanel Name="GreenBlueDisplay" Orientation="Vertical" >
+                    <Rectangle Name="GreenDisplay" Height="10" Width="10"/>
+                    <Rectangle Name="BlueDisplay"  Height="10" Width="10" />
+                </StackPanel>
+            </Viewbox>
+        </Grid>
+        <Button Grid.Row="6" Grid.Column="0" Name="BtnMix" Content="Mix" FontSize="15" Background="Transparent" Margin="5" Click="BtnMix_Click"/>
+        <Button Grid.Row="6" Grid.Column="1" Name="BtnReset" Content="Reset"  FontSize="15" Background="Transparent" Margin="5" Click="BtnReset_Click"/>
+    </Grid>
+</Window>
