@@ -19,10 +19,14 @@ namespace ColorMixer
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {       
+    {
         //minimum and maximum bytes of colors;
         const byte COLOR_BYTE_MAX = (byte)255;
         const byte COLOR_BYTE_MIN = (byte)0;
+        private byte red = 0;
+        private byte green = 0;
+        private byte blue = 0;
+        private int checkpoint = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -65,44 +69,31 @@ namespace ColorMixer
         }
         //click mix button will do mixing function
         private void BtnMix_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            red = 0;
+            green = 0;
+            blue = 0;
+            checkpoint = 0;
             if (Standard.IsChecked == true)
-            {            
-                if ((FirstRed.IsChecked == true && SecondGreen.IsChecked == true) || (FirstGreen.IsChecked == true && SecondRed.IsChecked == true))
+            {
+                if (FirstRed.IsChecked == true || SecondRed.IsChecked == true)
                 {
-                    
-                    ColorMixer.Background = new SolidColorBrush(Color.FromArgb(COLOR_BYTE_MAX, COLOR_BYTE_MAX, COLOR_BYTE_MAX, COLOR_BYTE_MIN));
+                    red = COLOR_BYTE_MAX; checkpoint++;
                 }
-                else if ((FirstRed.IsChecked == true && SecondBlue.IsChecked == true) || (FirstBlue.IsChecked == true && SecondRed.IsChecked == true))
+                if (FirstGreen.IsChecked == true || SecondGreen.IsChecked == true)
                 {
-                    ColorMixer.Background = new SolidColorBrush(Color.FromArgb(COLOR_BYTE_MAX, COLOR_BYTE_MAX, COLOR_BYTE_MIN, COLOR_BYTE_MAX));
+                    green = COLOR_BYTE_MAX; checkpoint++;
                 }
-                else if ((FirstBlue.IsChecked == true && SecondGreen.IsChecked == true) || (FirstGreen.IsChecked == true && SecondBlue.IsChecked == true))
+                if (FirstBlue.IsChecked == true || SecondBlue.IsChecked == true)
                 {
-                    ColorMixer.Background = new SolidColorBrush(Color.FromArgb(COLOR_BYTE_MAX, COLOR_BYTE_MIN, COLOR_BYTE_MAX, COLOR_BYTE_MAX));
+                    blue = COLOR_BYTE_MAX; checkpoint++;
                 }
-                else if ((FirstRed.IsChecked == true && SecondRed.IsChecked == true) || (FirstGreen.IsChecked == true && SecondGreen.IsChecked == true) || (FirstBlue.IsChecked == true && SecondBlue.IsChecked == true))
-                {
-                    //if users pick same color on both sets, just show first set color
-                    if (FirstRed.IsChecked == true)
-                    {
-                        ColorMixer.Background = new SolidColorBrush(Color.FromArgb(COLOR_BYTE_MAX, COLOR_BYTE_MAX, COLOR_BYTE_MIN, COLOR_BYTE_MIN));
-                    }
-                    else if (FirstGreen.IsChecked == true)
-                    {
-                        ColorMixer.Background = new SolidColorBrush(Color.FromArgb(COLOR_BYTE_MAX, COLOR_BYTE_MIN, COLOR_BYTE_MAX, COLOR_BYTE_MIN));
-                    }
-                    else if (FirstBlue.IsChecked == true)
-                    {
-                        ColorMixer.Background = new SolidColorBrush(Color.FromArgb(COLOR_BYTE_MAX, COLOR_BYTE_MIN, COLOR_BYTE_MIN, COLOR_BYTE_MAX));
-                    }
-                }
+                if (checkpoint>=1)
+                    ColorMixer.Background = new SolidColorBrush(Color.FromArgb(COLOR_BYTE_MAX, red, green, blue));
                 else
-                {
                     MessageBox.Show("Please select one color from each set", "Reminder", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }                
             }
-            if (Custom.IsChecked == true)
+            else if (Custom.IsChecked == true)
             {
                 ColorMixer.Background = new SolidColorBrush(Color.FromArgb((byte)AlphaSlider.Value, (byte)RedSlider.Value, (byte)GreenSlider.Value, (byte)BlueSlider.Value));
             }
