@@ -16,7 +16,7 @@ Simple clone the repo or downlad the zipped codes to the local repo, and it is a
 
 ## Authors
 
-Wei (Joe) Huang
+Xue Wei (Joe) Huang
 
 ## License
 
